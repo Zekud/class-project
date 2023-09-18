@@ -45,7 +45,7 @@ void add(Student s[]){
         cin>>s[i].age;
         file<<s[i].age<<" ";
         p:
-        cout<<"id: ";
+        cout<<"Id (**Notice that id must be unique and you can't edit it**): ";
         cin>>id_check;
         for(Student stud : container){
             if(stud.id == id_check){
@@ -69,20 +69,26 @@ void add(Student s[]){
     file.close();
 }
 void display(){
-    cout<<"---------------------------------------------------------------------------------------------------------\n";
-    cout<<"|id\t|\tname\t|\tage\t|\tsex\t|\tm1\t|\tm2\t|\tm3\t|\n";
-    cout<<"---------------------------------------------------------------------------------------------------------\n";
-    fstream file {"file.txt", ios::in};
-    while(file>>name>>age>>id>>sex>>mark[0]>>mark[1]>>mark[2]){
-        cout<<"|"<<id<<"\t|\t"<<name<<"\t|\t"<<age<<"\t|\t"<<sex<<"\t|\t";
-        for(int j=0; j<3; ++j){
-            cout<<mark[j]<<"\t|\t";
+    if(container.empty()){
+        cout<<"**No records found!(empty file)**\n\n"<<endl;
+        return;
+    }else{
+        cout<<"---------------------------------------------------------------------------------------------------------\n";
+        cout<<"|id\t|\tname\t|\tage\t|\tsex\t|\tm1\t|\tm2\t|\tm3\t|\n";
+        cout<<"---------------------------------------------------------------------------------------------------------\n";
+        fstream file {"file.txt", ios::in};
+        while(file>>name>>age>>id>>sex>>mark[0]>>mark[1]>>mark[2]){
+            cout<<"|"<<id<<"\t|\t"<<name<<"\t|\t"<<age<<"\t|\t"<<sex<<"\t|\t";
+            for(int j=0; j<3; ++j){
+                cout<<mark[j]<<"\t|\t";
+            }
+            cout<<endl;
         }
-        cout<<endl;
+        file.close();
+        cout<<"---------------------------------------------------------------------------------------------------------\n";
     }
-    file.close();
-    cout<<"---------------------------------------------------------------------------------------------------------\n";
 }
+    
 int main(){
     getFileData();
     int choice,id,choice2;
@@ -203,15 +209,22 @@ int main(){
         }
         
         if (found == 0){
-            cout<<"**id not found!**"<<endl;
+            cout<<"\n\n**id not found!**"<<endl;
         }
         goto m;
     }else if(choice == 5){
+        if(container.empty()){
+            cout<<"**\n\nalready the file is empty**\n\n"<<endl;
+            goto m; 
+        }else{
         fstream file {"file.txt", ios::out};
         file.close();
         container.clear();
         cout<<"\n** file data cleared successfully **"<<endl;
-        goto m;    
+        goto m;
+        }
+        
+          
     }else if(choice == 6){
         cout<<"\n\n**Good bye!**\n\n";
         return 0;
