@@ -45,11 +45,11 @@ void add(Student s[]){
         cin>>s[i].age;
         file<<s[i].age<<" ";
         p:
-        cout<<"Id (**Notice that id must be unique and you can't edit it**): ";
+        cout<<"Id (**Notice that id must be unique**): ";
         cin>>id_check;
         for(Student stud : container){
             if(stud.id == id_check){
-                cout<<"**id already taken! please enter new id**"<<endl;
+                cout<<"\n**id already taken! please enter new id**\n"<<endl;
                 goto p;
             }
         }
@@ -214,13 +214,13 @@ int main(){
         goto m;
     }else if(choice == 5){
         if(container.empty()){
-            cout<<"**\n\nalready the file is empty**\n\n"<<endl;
+            cout<<"\n\n**already the file is empty**\n\n"<<endl;
             goto m; 
         }else{
         fstream file {"file.txt", ios::out};
         file.close();
         container.clear();
-        cout<<"\n** file data cleared successfully **"<<endl;
+        cout<<"\n** file data cleared successfully!! **"<<endl;
         goto m;
         }
         
